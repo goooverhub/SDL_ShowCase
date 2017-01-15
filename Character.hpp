@@ -11,12 +11,15 @@
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
+#include "Bullet.hpp"
+#include <vector>
 
 class Character {
     
     SDL_Texture *characterTexture;
     SDL_Rect sourceRect;
     SDL_Rect desRect;
+    SDL_Renderer *renderTarget;
     
     int originalWidth;
     int originalHeight;
@@ -31,14 +34,21 @@ class Character {
     int renderPosY;
     
     float speed;
+    float range;
+    float bulletDelay;
     
     float frameCounter;
+    
+    std::vector<Bullet *> bulletArray;
     
 public:
     Character(SDL_Renderer *renderTarget);
     ~Character();
     bool Update(const Uint8 *keyState, float delta);
+    bool UpdateBullet();
     bool Draw(SDL_Renderer *renderTarget);
 };
 
 #endif /* Character_hpp */
+
+

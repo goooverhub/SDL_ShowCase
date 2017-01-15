@@ -11,7 +11,9 @@
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
+#include <SDL2_image/SDL_image.h>
 #include "Character.hpp"
+#include "Texts.hpp"
 
 class SCore {
     
@@ -34,6 +36,7 @@ class SCore {
     SDL_Surface *windowSurface;
     
     Character *character;
+    Texts *text;
     
 public:
     
