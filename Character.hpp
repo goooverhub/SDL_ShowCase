@@ -27,6 +27,11 @@ class Character {
     int fitWidth;
     int fitHeight;
     
+    int displayWidth;
+    int displayHeight;
+    
+    float displayBase;
+    
     int posX;
     int posY;
     

@@ -47,6 +47,9 @@ public:
 
     bool Draw(SDL_Renderer *renderTarget);
     
+    int GetFitWidth();
+    int GetFitHeight();
+    
 };
 
 struct BulletProperty {

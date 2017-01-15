@@ -69,3 +69,11 @@ bool Bullet::Draw(SDL_Renderer *targetRender) {
     }
 
 }
+
+int Bullet::GetFitWidth() {
+    return this -> fitWidth;
+}
+
+int Bullet::GetFitHeight() {
+    return this -> fitHeight;
+}
