@@ -36,10 +36,14 @@ class Character {
     float speed;
     float range;
     float bulletDelay;
+    float bulletDelayCount;
+    float shotSpeed;
+    float shotSpeedBase;
     
     float frameCounter;
     
-    std::vector<Bullet *> bulletArray;
+    Bullet *bullet;
+    std::vector<BulletProperty> bulletArray;
     
 public:
     Character(SDL_Renderer *renderTarget);

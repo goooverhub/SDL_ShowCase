@@ -52,15 +52,10 @@ void SCore::StartMainLoop() {
     float delta = 0.0f;
     const Uint8 *keyState;
     SDL_Surface* background;
-    uint8_t r = 255;
-    uint8_t g = 255;
-    uint8_t b = 255;
-    uint8_t a = 255;
     
     background = SDL_LoadBMP("background.bmp");
     bgTexture = SDL_CreateTextureFromSurface(renderTarget, background);
     SDL_FreeSurface(background);
-    SDL_SetTextureBlendMode(bgTexture, SDL_BLENDMODE_BLEND);
     
     while (!quit) {
         while(SDL_PollEvent(&event) != 0) {
@@ -79,15 +74,6 @@ void SCore::StartMainLoop() {
         
         SDL_SetRenderDrawColor(renderTarget, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderTarget);
-        
-        
-        if (keyState[SDL_SCANCODE_D]) {
-            SDL_SetTextureColorMod(bgTexture, --r, --g, --b);
-        }
-        
-        if (keyState[SDL_SCANCODE_S]) {
-            SDL_SetTextureAlphaMod(bgTexture, --a);
-        }
         
         SDL_RenderCopy(renderTarget, bgTexture, NULL, NULL);
         character -> Update(keyState, delta);

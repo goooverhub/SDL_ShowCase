@@ -24,13 +24,16 @@ Character::Character(SDL_Renderer *renderTarget) {
     renderPosX = 0;
     renderPosY = 0;
     speed = 200.0f;
-    bulletDelay = 0.0f;
+    bulletDelay = 0.1f;
+    bulletDelayCount = 0.0f;
+    shotSpeed = 0.0f;
+    shotSpeedBase = 500.0f;
     range = 100.0f;
     fitWidth = originalWidth/6;
     fitHeight = originalHeight/8;
     sourceRect = {renderPosX, renderPosY, fitWidth, fitHeight};
     desRect = {posX, posY, fitWidth, fitHeight};
-    
+    bullet = new Bullet(0, 0, this -> renderTarget, -1, range);
     frameCounter = 0;
 }
 
@@ -50,8 +53,6 @@ bool Character::Update(const Uint8 *keyState, float delta) {
         frameCounter += delta;
     }
     
-    Bullet *bullet = nullptr;
-    
     if (keyState[SDL_SCANCODE_D]) {
         posX = posX >= (800  - fitWidth) ? (800  - fitWidth) : (posX + speed*delta);
         renderPosY = 2 * fitHeight;
@@ -68,41 +69,46 @@ bool Character::Update(const Uint8 *keyState, float delta) {
         renderPosY = 3 * fitHeight;
     }
     
+    int temp_direction = -1;
+    
     if (keyState[SDL_SCANCODE_RIGHT]) {
-        bullet = new Bullet(posX, posY, this -> renderTarget, 2, range);
+//        bullet = new Bullet(posX, posY, this -> renderTarget, 2, range);
+        temp_direction = 2;
     }
-    if (keyState[SDL_SCANCODE_LEFT]) {
-        bullet = new Bullet(posX, posY, this -> renderTarget, 0, range);
+    else if (keyState[SDL_SCANCODE_LEFT]) {
+//        bullet = new Bullet(posX, posY, this -> renderTarget, 0, range);
+        temp_direction = 0;
     }
-    if (keyState[SDL_SCANCODE_UP]) {
-        bullet = new Bullet(posX - 10, posY, this -> renderTarget, 1, range);
+    else if (keyState[SDL_SCANCODE_UP]) {
+//        bullet = new Bullet(posX - 10, posY, this -> renderTarget, 1, range);
+        temp_direction = 1;
     }
-    if (keyState[SDL_SCANCODE_DOWN]) {
-        bullet = new Bullet(posX - 10, posY, this -> renderTarget, 3, range);
+    else if (keyState[SDL_SCANCODE_DOWN]) {
+        temp_direction = 3;
     }
     
-    if (bullet != nullptr && bulletDelay >= 0.25) {
-        bulletDelay = 0;
-        bulletArray.push_back(bullet);
+    if (temp_direction != -1 && bulletDelayCount >= bulletDelay) {
+        bulletDelayCount = 0;
+        BulletProperty temp_bulletPropery = {posX, posY, temp_direction};
+        bulletArray.push_back(temp_bulletPropery);
     } else {
-        bulletDelay += delta;
+        bulletDelayCount += delta;
     }
     
     desRect = {posX, posY, fitWidth, fitHeight};
     sourceRect = {renderPosX, renderPosY, fitWidth, fitHeight};
+    shotSpeed = delta * shotSpeedBase;
     UpdateBullet();
     return true;
 }
 
 bool Character::UpdateBullet() {
     for (int i = 0; i < bulletArray.size(); i ++) {
-        bulletArray[i] -> Update(speed + 300, 0.02f);
-        bool result = bulletArray[i] -> Draw(renderTarget);
-        if (!result) {
-            bulletArray[i] = nullptr;
+        bullet -> Update(shotSpeed, bulletArray[i].direction, &bulletArray[i].posX, &bulletArray[i].posY);
+        bool result = bullet -> Draw(renderTarget);
+        if(!result) {
             bulletArray.erase(bulletArray.begin() + i);
         }
-        
     }
     return true;
 }

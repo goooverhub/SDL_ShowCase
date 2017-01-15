@@ -43,8 +43,14 @@ public:
     Bullet(int posX, int posY, SDL_Renderer *renderTarget, int direction, int range);
     ~Bullet();
     
-    bool Update(int speed, float delta);
+    bool Update(float shotSpeed, int direction, int *posX, int *posY);
 
     bool Draw(SDL_Renderer *renderTarget);
     
+};
+
+struct BulletProperty {
+    int posX;
+    int posY;
+    int direction;
 };
