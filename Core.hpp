@@ -10,6 +10,7 @@
 #define Core_hpp
 
 #include <stdio.h>
+#include <cmath>
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
 #include "Character.hpp"

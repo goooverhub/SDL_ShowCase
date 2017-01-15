@@ -11,15 +11,12 @@
 
 #include <stdio.h>
 
-#endif /* Config_hpp */
-
 class Config {
     
+public:
     static int mainWindowWidth;
     
     static int mainWindowHeight;
-    
-public:
     
     Config();
     
@@ -32,3 +29,7 @@ public:
     int GetMainWindowHeight();
     
 };
+
+#endif /* Config_hpp */
+
+

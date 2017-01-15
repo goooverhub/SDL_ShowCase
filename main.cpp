@@ -13,7 +13,7 @@
 int main(int argc, const char * argv[]) {
     // insert code here...
     
-    Config *config = new Config(800,800);
+    Config *config = new Config(1280, 720);
     
     SCore *Core = new SCore(config -> GetMainWindowWidth(), config -> GetMainWindowHeight());
     

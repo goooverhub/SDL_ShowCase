@@ -44,12 +44,12 @@ bool Bullet::Update(float shotSpeed, int direction, int *posX, int *posY) {
             dead = *posY == 0;
             break;
         case 2:
-            *posX = *posX >= 800 ? 800 : (*posX + shotSpeed);
-            dead = *posX == 800;
+            *posX = *posX >= Config::mainWindowWidth ? Config::mainWindowWidth : (*posX + shotSpeed);
+            dead = *posX == Config::mainWindowWidth;
             break;
         case 3:
-            *posY = *posY >= 800 ? 800 : (*posY + shotSpeed);
-            dead = *posY == 800;
+            *posY = *posY >= Config::mainWindowHeight ? Config::mainWindowHeight : (*posY + shotSpeed);
+            dead = *posY == Config::mainWindowHeight;
             break;
         default:
             break;

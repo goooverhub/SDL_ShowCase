@@ -14,25 +14,31 @@
 #include <string>
 #include <SDL2/SDL.h>
 #include <SDL2_ttf/SDL_ttf.h>
+#include "Config.hpp"
 
 #endif /* Texts_hpp */
 
 
 class Texts {
     
+    SDL_Renderer *renderTarget;
     SDL_Surface *textSurface;
     SDL_Texture *textTexture;
     TTF_Font *font;
     int fontSize;
     SDL_Color   textColor;
     SDL_Rect descRect;
+    std::string content;
     
     int textureWidth;
     int textureHeight;
     
+    float updateCounter;
+    float updateBase;
+    
 public:
     Texts(SDL_Renderer *renderTarget, std::string text);
     ~Texts();
-    bool Update(std::string text);
-    bool Draw(SDL_Renderer *renderTarget);
+    bool Update(std::string text, float delta);
+    bool Draw();
 };

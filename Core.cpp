@@ -53,7 +53,7 @@ void SCore::StartMainLoop() {
     const Uint8 *keyState;
     SDL_Surface* background;
     
-    background = SDL_LoadBMP("background.bmp");
+    background = IMG_Load("full.png");
     bgTexture = SDL_CreateTextureFromSurface(renderTarget, background);
     SDL_FreeSurface(background);
     
@@ -78,8 +78,7 @@ void SCore::StartMainLoop() {
         SDL_RenderCopy(renderTarget, bgTexture, NULL, NULL);
         character -> Update(keyState, delta);
         st = character -> Draw(renderTarget);
-        st = text -> Draw(renderTarget);
-        
+        text -> Update("fps: " + std::to_string((int)(1/delta)), delta);
         
         SDL_RenderPresent(renderTarget);
 

@@ -23,15 +23,15 @@ Character::Character(SDL_Renderer *renderTarget) {
     posY = 0;
     renderPosX = 0;
     renderPosY = 0;
-    speed = 200.0f;
-    bulletDelay = 0.1f;
+    speed = 300.0f;
+    bulletDelay = 0.21f;
     bulletDelayCount = 0.0f;
     shotSpeed = 0.0f;
     shotSpeedBase = 500.0f;
     range = 100.0f;
     fitWidth = originalWidth/6;
     fitHeight = originalHeight/8;
-    displayBase = 1.5f;
+    displayBase = 2.5f;
     displayWidth = fitWidth * displayBase;
     displayHeight = fitHeight * displayBase;
     sourceRect = {renderPosX, renderPosY, fitWidth, fitHeight};
@@ -57,14 +57,14 @@ bool Character::Update(const Uint8 *keyState, float delta) {
     }
     
     if (keyState[SDL_SCANCODE_D]) {
-        posX = posX >= (800  - fitWidth) ? (800  - fitWidth) : (posX + speed*delta);
+        posX = posX >= (Config::mainWindowWidth - fitWidth) ? (Config::mainWindowWidth - fitWidth) : (posX + speed*delta);
         renderPosY = 2 * fitHeight;
     }
     if (keyState[SDL_SCANCODE_A]) {
         posX = posX <= 0 ? 0 : (posX - speed*delta);
         renderPosY = 1 * fitHeight;
     }if (keyState[SDL_SCANCODE_S]) {
-        posY = posY >= (800 - fitHeight) ? (800 - fitHeight) : (posY + speed*delta);
+        posY = posY >= (Config::mainWindowHeight - fitHeight) ? (Config::mainWindowHeight - fitHeight) : (posY + speed*delta);
         renderPosY = 0 * fitHeight;
     }
     if (keyState[SDL_SCANCODE_W]) {

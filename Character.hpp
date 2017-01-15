@@ -13,6 +13,7 @@
 #include <SDL2/SDL.h>
 #include "Bullet.hpp"
 #include <vector>
+#include "Config.hpp"
 
 class Character {
     
