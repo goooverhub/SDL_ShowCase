@@ -18,7 +18,9 @@ Texts::Texts(SDL_Renderer *renderTarget, std::string text){
     SDL_FreeSurface(textSurface);
     SDL_QueryTexture(textTexture, 0, 0, &textureWidth, &textureHeight);
     content = "n/a";
-    updateBase = 0.5;
+    updateBase = 1;
+    times = 0;
+    max = 0;
 }
 
 Texts::~Texts(){
@@ -26,12 +28,15 @@ Texts::~Texts(){
 }
 
 bool Texts::Update(std::string text, float delta) {
-    
     if (updateCounter >= updateBase) {
+        content = "fps " + std::to_string(max/times);
         updateCounter = 0;
-        content = text;
+        max = 0;
+        times = 0;
     } else {
+        ++times;
         updateCounter += delta;
+        max += 1/delta;
     }
 
     textSurface = TTF_RenderText_Solid(font, content.c_str(), textColor);

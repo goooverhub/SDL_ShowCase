@@ -34,7 +34,8 @@ SCore::SCore(int windowWidth, int windowHeight) {
     
     character = new Character(renderTarget);
     text = new Texts(renderTarget, "HELLO FRIENDS");
-    
+    blockRed = new Block(renderTarget, 100, 100, 300, 300, 255, 0, 0);
+    blockGreen = new Block(renderTarget, 200, 200, 400, 500, 0, 255, 0);
 }
 
 SCore::~SCore() {
@@ -76,9 +77,14 @@ void SCore::StartMainLoop() {
         SDL_RenderClear(renderTarget);
         
         SDL_RenderCopy(renderTarget, bgTexture, NULL, NULL);
+        blockGreen -> Update();
+        blockGreen -> Draw();
+        blockRed -> Update();
+        blockRed -> Draw();
         character -> Update(keyState, delta);
         st = character -> Draw(renderTarget);
         text -> Update("fps: " + std::to_string((int)(1/delta)), delta);
+
         
         SDL_RenderPresent(renderTarget);
 

@@ -33,6 +33,9 @@ class Texts {
     int textureWidth;
     int textureHeight;
     
+    int times;
+    int max;
+    
     float updateCounter;
     float updateBase;
     

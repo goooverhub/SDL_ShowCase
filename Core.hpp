@@ -15,6 +15,7 @@
 #include <SDL2_image/SDL_image.h>
 #include "Character.hpp"
 #include "Texts.hpp"
+#include "Block.hpp"
 
 class SCore {
     
@@ -35,6 +36,9 @@ class SCore {
     
     SDL_Window *mainWindow;
     SDL_Surface *windowSurface;
+    
+    Block *blockRed;
+    Block *blockGreen;
     
     Character *character;
     Texts *text;
